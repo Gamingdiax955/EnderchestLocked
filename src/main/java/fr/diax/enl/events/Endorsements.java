@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Endorsements implements Listener {
@@ -40,7 +41,7 @@ public class Endorsements implements Listener {
 
         if (b != null && b.getType().equals(Material.ENDER_CHEST)) {
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-                ItemStack[] content = ((List<ItemStack>) enderchest.get("Enderchest")).toArray(new ItemStack[0]);
+                ItemStack[] content = ((ArrayList<ItemStack>) enderchest.get("Enderchest")).toArray(new ItemStack[0]);
                 event.setCancelled(true);
 
                 inv.setContents(content);
