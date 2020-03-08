@@ -29,7 +29,7 @@ public class Endorsements implements Listener {
 
     }
 
-    YamlConfiguration enderchestcustom = YamlConfiguration.loadConfiguration(new File(main.getDataFolder(), player.getDisplayName() + ".yml"));
+    YamlConfiguration enderchestcustom = YamlConfiguration.loadConfiguration(new File(main != null ? main.getDataFolder() : null, (player != null ? player.getDisplayName() : null) + ".yml"));
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
