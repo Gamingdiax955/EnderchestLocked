@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +30,7 @@ public class Endorsements implements Listener {
         min = main;
     }
 
-    YamlConfiguration enderchest = YamlConfiguration.loadConfiguration(new File(main.getDataFolder() + p.getName() + ".yml"));
+    YamlConfiguration enderchest = YamlConfiguration.loadConfiguration(new File(main.getDataFolder() + p.getUniqueId().toString() + ".yml"));
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -37,14 +38,15 @@ public class Endorsements implements Listener {
         Block b = event.getClickedBlock();
         Player p = event.getPlayer();
         Inventory inv = Bukkit.createInventory(p, 3 * 9, "§8EC §9- §6" + p.getName());
-
+        ItemStack[] itemStacks = inv.getContents();
 
         if (b != null && b.getType().equals(Material.ENDER_CHEST)) {
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-                ItemStack[] content = ((ArrayList<ItemStack>) enderchest.get("Enderchest")).toArray(new ItemStack[0]);
+
                 event.setCancelled(true);
 
-                inv.setContents(content);
+                enderchest.getList("Enderchest");
+
                 p.openInventory(inv);
 
 
@@ -58,9 +60,10 @@ public class Endorsements implements Listener {
         Player p = (Player) event.getPlayer();
         Inventory inv = p.getInventory();
 
-        if (event.getView().getTitle().equals("§8EC §9- §6" + p.getName())) {
 
-            enderchest.set("Enderchest", inv.getContents());
+        if (event.getView().getTitle().equals("§8EC §9- §6" + p.getName())) {
+            enderchest.set("Enderchest", inv.getSize());
+
         }
 
 
