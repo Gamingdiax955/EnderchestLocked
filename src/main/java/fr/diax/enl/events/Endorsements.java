@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,12 +14,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Endorsements implements Listener {
 
@@ -30,7 +28,7 @@ public class Endorsements implements Listener {
         min = main;
     }
 
-    YamlConfiguration enderchest = YamlConfiguration.loadConfiguration(new File(main.getDataFolder() + p.getUniqueId().toString() + ".yml"));
+    YamlConfiguration enderchestcustom = YamlConfiguration.loadConfiguration(new File(main.getDataFolder() + p.getUniqueId().toString() + ".yml"));
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -38,14 +36,14 @@ public class Endorsements implements Listener {
         Block b = event.getClickedBlock();
         Player p = event.getPlayer();
         Inventory inv = Bukkit.createInventory(p, 3 * 9, "§8EC §9- §6" + p.getName());
-        ItemStack[] itemStacks = inv.getContents();
+
 
         if (b != null && b.getType().equals(Material.ENDER_CHEST)) {
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 
                 event.setCancelled(true);
-
-                enderchest.getList("Enderchest");
+                p.sendMessage("bonjour");
+                enderchestcustom.getList("Enderchest");
 
                 p.openInventory(inv);
 
@@ -62,7 +60,7 @@ public class Endorsements implements Listener {
 
 
         if (event.getView().getTitle().equals("§8EC §9- §6" + p.getName())) {
-            enderchest.set("Enderchest", inv.getSize());
+            enderchestcustom.set("Enderchest", inv.getSize());
 
         }
 
@@ -73,7 +71,7 @@ public class Endorsements implements Listener {
     public void onBlockedInventory(InventoryClickEvent event) {
         Player p = (Player) event.getWhoClicked();
 
-        if (event.getView().getTitle() == "§8EC §9- §6" + p.getName()) {
+        if (event.getView().getTitle().equals("§8EC §9- §6" + p.getName()))  {
             event.setCancelled(true);
         }
     }
