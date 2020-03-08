@@ -22,13 +22,14 @@ import java.io.File;
 public class Endorsements implements Listener {
 
     enlMain main;
-    Player p;
+    Player player;
 
     public Endorsements(enlMain min) {
         min = main;
+
     }
 
-    YamlConfiguration enderchestcustom = YamlConfiguration.loadConfiguration(new File(main.getDataFolder(), p.getUniqueId().toString() + ".yml"));
+    YamlConfiguration enderchestcustom = YamlConfiguration.loadConfiguration(new File(main.getDataFolder(), player.getDisplayName() + ".yml"));
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
