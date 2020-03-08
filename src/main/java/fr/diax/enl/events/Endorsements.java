@@ -22,14 +22,14 @@ import java.io.File;
 public class Endorsements implements Listener {
 
     enlMain main;
-    Player player;
+
 
     public Endorsements(enlMain min) {
         min = main;
 
     }
 
-    YamlConfiguration enderchestcustom = YamlConfiguration.loadConfiguration(new File(main != null ? main.getDataFolder() : null, (player != null ? player.getDisplayName() : null) + ".yml"));
+    YamlConfiguration enderchestcustom;
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -37,7 +37,7 @@ public class Endorsements implements Listener {
         Block b = event.getClickedBlock();
         Player p = event.getPlayer();
         Inventory inv = Bukkit.createInventory(p, 3 * 9, "§8EC §9- §6" + p.getName());
-
+        enderchestcustom = YamlConfiguration.loadConfiguration(new File(main.getDataFolder(), p.getDisplayName() + ".yml"));
 
         if (b != null && b.getType().equals(Material.ENDER_CHEST)) {
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
